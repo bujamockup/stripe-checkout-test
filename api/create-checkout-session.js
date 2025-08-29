@@ -10,6 +10,10 @@ export default async function handler(req, res) {
 
   const { priceId } = req.body
 
+  if (!priceId) {
+    return res.status(400).json({ error: "Price ID is required" })
+  }
+
   try {
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ["card"],
